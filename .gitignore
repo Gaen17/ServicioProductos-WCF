@@ -1,0 +1,27 @@
+﻿# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet
+packages/
+*.nupkg
+
+# Web publish
+PublishProfiles/
+*.pubxml
+
+# Logs
+*.log
