@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 
 namespace ServicioProductos
 {
@@ -8,22 +6,18 @@ namespace ServicioProductos
     public interface IProductoService
     {
         [OperationContract]
-        List<Producto> ListarProductos();
+        RespuestaListaProductos ListarProductos();
 
         [OperationContract]
-        Producto ObtenerProducto(int id);
-    }
+        RespuestaProducto ObtenerProducto(int id);
 
-    [DataContract]
-    public class Producto
-    {
-        [DataMember]
-        public int Id { get; set; }
+        [OperationContract]
+        RespuestaProducto InsertarProducto(Producto producto);
 
-        [DataMember]
-        public string Nombre { get; set; }
+        [OperationContract]
+        RespuestaProducto ActualizarProducto(Producto producto);
 
-        [DataMember]
-        public decimal Precio { get; set; }
+        [OperationContract]
+        RespuestaOperacion EliminarProducto(int id);
     }
 }

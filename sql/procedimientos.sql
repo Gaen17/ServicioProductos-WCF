@@ -183,3 +183,26 @@ BEGIN
     ORDER BY v.IdProducto;
 END;
 GO
+
+-- Auxiliares de validacion. No exponen datos al cliente: solo responden 1 o 0.
+CREATE OR ALTER PROCEDURE dbo.usp_Categoria_Existe
+    @IdCategoria INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT CASE WHEN EXISTS (SELECT 1 FROM dbo.Categorias WHERE Id = @IdCategoria)
+                THEN 1 ELSE 0 END AS Existe;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Producto_TieneVentas
+    @IdProducto INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT CASE WHEN EXISTS (SELECT 1 FROM dbo.DetalleVenta WHERE IdProducto = @IdProducto)
+                THEN 1 ELSE 0 END AS TieneVentas;
+END;
+GO
