@@ -21,4 +21,34 @@ namespace ServicioProductos.Data
 
         public string UrlImagen { get; set; }
     }
+
+    /// <summary>
+    /// Resultado de usp_Venta_ObtenerPendientes.
+    /// </summary>
+    public class VentaPendienteSp
+    {
+        public int IdProducto { get; set; }
+
+        public int CantidadVendida { get; set; }
+
+        public int CantidadDevuelta { get; set; }
+
+        public int CantidadPendiente { get; set; }
+
+        public decimal PrecioVenta { get; set; }
+    }
+
+    /// <summary>
+    /// Detalle ya validado que se inserta dentro de la transaccion.
+    /// </summary>
+    public class DetalleDevolucionData
+    {
+        public int IdProducto { get; set; }
+
+        public int Cantidad { get; set; }
+
+        public decimal PrecioVenta { get; set; }
+
+        public bool ReingresaInventario { get; set; }
+    }
 }

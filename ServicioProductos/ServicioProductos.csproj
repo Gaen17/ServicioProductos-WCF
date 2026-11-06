@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DesavaPAContext.cs" />
+    <Compile Include="Data\DevolucionData.cs" />
     <Compile Include="Data\Entidades.cs" />
     <Compile Include="Data\ProductoData.cs" />
     <Compile Include="Data\SpDtos.cs" />

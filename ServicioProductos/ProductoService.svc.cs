@@ -14,6 +14,7 @@ namespace ServicioProductos
     public class ProductoService : IProductoService
     {
         private readonly ProductoData _productoData = new ProductoData();
+        private readonly DevolucionData _devolucionData = new DevolucionData();
 
         public RespuestaListaProductos ListarProductos()
         {
@@ -299,6 +300,133 @@ namespace ServicioProductos
             }
         }
 
+        public RespuestaDevolucion RegistrarDevolucionVenta(int idVenta, string motivo, List<ItemDevolucionDto> items)
+        {
+            // 1. Lista vacia.
+            if (items == null || items.Count == 0)
+            {
+                return ErrorDevolucion("Debe indicar al menos un producto para devolver.");
+            }
+
+            // 2. Motivo obligatorio.
+            if (string.IsNullOrWhiteSpace(motivo))
+            {
+                return ErrorDevolucion("El motivo de la devolucion es obligatorio.");
+            }
+
+            motivo = motivo.Trim();
+            if (motivo.Length > 255)
+            {
+                return ErrorDevolucion("El motivo de la devolucion no debe superar los 255 caracteres.");
+            }
+
+            try
+            {
+                // 3. Venta existente.
+                if (!_devolucionData.VentaExiste(idVenta))
+                {
+                    return ErrorDevolucion("La venta indicada no existe.");
+                }
+
+                var pendientes = _devolucionData.ObtenerPendientes(idVenta);
+                var porProducto = pendientes.ToDictionary(p => p.IdProducto);
+
+                // 4. Todos los productos deben pertenecer a la venta.
+                foreach (var item in items)
+                {
+                    if (item == null)
+                    {
+                        return ErrorDevolucion("La lista contiene un item invalido.");
+                    }
+
+                    if (!porProducto.ContainsKey(item.IdProducto))
+                    {
+                        return ErrorDevolucion("El producto con Id " + item.IdProducto + " no pertenece a la venta indicada.");
+                    }
+                }
+
+                // 5. Cantidades mayores que cero.
+                foreach (var item in items)
+                {
+                    if (item.Cantidad <= 0)
+                    {
+                        return ErrorDevolucion("La cantidad a devolver del producto " + item.IdProducto + " debe ser mayor que cero.");
+                    }
+                }
+
+                // 6. Productos duplicados.
+                var productosVistos = new HashSet<int>();
+                foreach (var item in items)
+                {
+                    if (!productosVistos.Add(item.IdProducto))
+                    {
+                        return ErrorDevolucion("El producto con Id " + item.IdProducto + " esta duplicado en la lista de devolucion.");
+                    }
+                }
+
+                // 7. No superar la cantidad pendiente de cada producto.
+                foreach (var item in items)
+                {
+                    var pendiente = porProducto[item.IdProducto];
+                    if (item.Cantidad > pendiente.CantidadPendiente)
+                    {
+                        return ErrorDevolucion("La cantidad a devolver del producto " + item.IdProducto +
+                                               " supera la cantidad pendiente (" + pendiente.CantidadPendiente + ").");
+                    }
+                }
+
+                // Monto: cantidad por el precio registrado en DetalleVenta.
+                var montoTotal = items.Sum(i => i.Cantidad * porProducto[i.IdProducto].PrecioVenta);
+
+                // Tipo: Completa solo si no queda pendiente en toda la venta.
+                var devueltoPorProducto = items
+                    .GroupBy(i => i.IdProducto)
+                    .ToDictionary(g => g.Key, g => g.Sum(i => i.Cantidad));
+
+                var quedaPendiente = pendientes.Any(p =>
+                    p.CantidadPendiente -
+                    (devueltoPorProducto.ContainsKey(p.IdProducto) ? devueltoPorProducto[p.IdProducto] : 0) > 0);
+
+                var tipoDevolucion = quedaPendiente ? "Parcial" : "Completa";
+
+                var detalles = items.Select(i => new DetalleDevolucionData
+                {
+                    IdProducto = i.IdProducto,
+                    Cantidad = i.Cantidad,
+                    PrecioVenta = porProducto[i.IdProducto].PrecioVenta,
+                    ReingresaInventario = i.ReingresaInventario
+                }).ToList();
+
+                var idDevolucion = _devolucionData.Registrar(idVenta, motivo, tipoDevolucion, montoTotal, detalles);
+
+                if (idDevolucion <= 0)
+                {
+                    return ErrorDevolucion("No se pudo registrar la devolucion.");
+                }
+
+                return new RespuestaDevolucion
+                {
+                    Exito = true,
+                    Mensaje = tipoDevolucion == "Completa"
+                        ? "Devolucion completa registrada correctamente."
+                        : "Devolucion parcial registrada correctamente.",
+                    IdDevolucion = idDevolucion,
+                    TipoDevolucion = tipoDevolucion,
+                    MontoTotalDevuelto = montoTotal
+                };
+            }
+            catch (SqlException ex) when (ex.Number == 547)
+            {
+                Trace.TraceError("Error de clave foranea al registrar la devolucion de la venta " + idVenta + ": " + ex);
+                return ErrorDevolucion("No se pudo registrar la devolucion porque los datos relacionados no son validos.");
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError("Error al registrar la devolucion de la venta " + idVenta + ": " + ex);
+                return ErrorDevolucion("No se pudo registrar la devolucion. Intente nuevamente.");
+            }
+        }
+
         private bool ValidarProducto(Producto producto, out string mensaje)
         {
             mensaje = null;
@@ -387,6 +515,18 @@ namespace ServicioProductos
                 IdCategoria = producto.IdCategoria,
                 CategoriaNombre = producto.CategoriaNombre,
                 UrlImagen = producto.UrlImagen
+            };
+        }
+
+        private static RespuestaDevolucion ErrorDevolucion(string mensaje)
+        {
+            return new RespuestaDevolucion
+            {
+                Exito = false,
+                Mensaje = mensaje,
+                IdDevolucion = 0,
+                TipoDevolucion = string.Empty,
+                MontoTotalDevuelto = 0
             };
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System.Collections.Generic;
+using System.ServiceModel;
 
 namespace ServicioProductos
 {
@@ -19,5 +20,8 @@ namespace ServicioProductos
 
         [OperationContract]
         RespuestaOperacion EliminarProducto(int id);
+
+        [OperationContract]
+        RespuestaDevolucion RegistrarDevolucionVenta(int idVenta, string motivo, List<ItemDevolucionDto> items);
     }
 }

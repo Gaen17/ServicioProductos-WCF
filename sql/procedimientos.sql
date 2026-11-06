@@ -196,6 +196,17 @@ BEGIN
 END;
 GO
 
+CREATE OR ALTER PROCEDURE dbo.usp_Venta_Existe
+    @IdVenta INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT CASE WHEN EXISTS (SELECT 1 FROM dbo.Ventas WHERE Id = @IdVenta)
+                THEN 1 ELSE 0 END AS Existe;
+END;
+GO
+
 CREATE OR ALTER PROCEDURE dbo.usp_Producto_TieneVentas
     @IdProducto INT
 AS
