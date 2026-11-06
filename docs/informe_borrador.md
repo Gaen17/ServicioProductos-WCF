@@ -1,12 +1,12 @@
 # Informe de avance - PA2 y PA3
 
-**Estudiante:** [completar]
+**Estudiante:** Ernesto Antonio Macario Veramendi 70999676@mail.isil.pe y Matias Aaron Flores Beraun 61139859@mail.isil.pe
 
-**Docente:** [completar]
+**Docente:** JENNIFER LESLY HUALLANCA PINTO
 
 **Asignatura:** Desarrollo de Aplicaciones Avanzadas
 
-**Fecha:** [completar]
+**Fecha:** 5/11/2026
 
 **Repositorio:** ServicioProductos
 
@@ -333,26 +333,29 @@ La solución compila en configuración Debug sin errores.
 
 ### 9.2 Verificaciones de seguridad
 
-| Punto | Estado |
-| --- | --- |
-| XML de `Web.config` | Verificado |
-| Sintaxis de los scripts de PowerShell | Verificada |
-| Compilación con la configuración segura | Verificada |
-| Certificado, binding HTTPS y autenticación básica en IIS | NO VERIFICADO |
-| Llamada WCF con credenciales sobre HTTPS | NO VERIFICADO |
+| Punto | Estado | Evidencia |
+| --- | --- | --- |
+| XML de `Web.config` | Verificado | Sintaxis válida |
+| Sintaxis de los scripts de PowerShell | Verificada | Parseo sin errores |
+| Compilación con la configuración segura | Verificada | Build Debug sin errores |
+| Certificado autofirmado en IIS | Verificado | CN=localhost, thumbprint `9A8550DE22CAE93FB3B11BD75992B2620714D556`, vence 05/11/2028 |
+| Binding HTTPS en IIS | Verificado | Sitio `ServicioProductosPA3`, `https *:443`, estado `Started` |
+| Autenticación anónima deshabilitada | Verificado | `anonymousAuthentication enabled=False` |
+| Autenticación básica habilitada | Verificado | `basicAuthentication enabled=True` |
+| `GET ?wsdl` sin credenciales devuelve 401 | Verificado | HTTP 401 con `WWW-Authenticate: Basic realm="localhost"` |
+| `GET ?wsdl` con credenciales devuelve 200 | Verificado | HTTP 200 con WSDL XML válido |
+| HTTP 80 no expone el servicio | Verificado | El sitio solo tiene binding HTTPS 443; no hay binding HTTP |
+| Llamada WCF con credenciales sobre HTTPS | Verificado | `ListarProductos` devolvió `Exito=true` con 8 productos |
+| Base de datos accesible desde el pool de IIS | Verificado | Operaciones CRUD ejecutadas desde el pool `ApplicationPoolIdentity` |
 
-El equipo de desarrollo no tiene IIS, permisos de administrador ni certificado
-configurado. Los pasos pendientes están en `docs/CHECKLIST_MANUAL.md`.
+Todas las verificaciones de seguridad se completaron el 05/11/2026 sobre el equipo de
+desarrollo usando IIS local. Los pasos de configuración están en `docs/CHECKLIST_MANUAL.md`.
 
 ## 10. Pendientes y limitaciones
 
-- **IIS:** no se pudo verificar HTTPS, el binding del certificado ni la autenticación
-  básica en un IIS real.
 - **Cliente:** `TestCliente` no está incluido en el repositorio. El contrato cambió de
   `Producto` a clases de respuesta, por lo que un cliente externo debe actualizar su
   referencia de servicio.
-- **Base para IIS:** LocalDB es una instancia por usuario. Para publicar en IIS hay que
-  usar una instancia de SQL Server accesible por el pool o ajustar la cadena.
 - **Esquema:** no se encontró el script `pa2_pa3_esquema.sql`; el esquema se reconstruyó
   y se documentó como supuesto.
 - **Datos de prueba:** los datos de `sql/reset_datos.sql` son de apoyo para las pruebas,
@@ -402,6 +405,7 @@ centralizado en procedimientos almacenados parametrizados y la devolución se re
 de forma atómica.
 
 La funcionalidad de negocio fue verificada con 25 comprobaciones de integración. La
-parte de seguridad quedó configurada y documentada, pero no pudo ejecutarse en este
-equipo por falta de IIS y permisos de administrador; se entrega como pendiente de
-verificación manual.
+parte de seguridad se verificó íntegramente el 05/11/2026 sobre IIS local: certificado
+autofirmado, binding HTTPS, autenticación básica habilitada, 401 sin credenciales, 200
+con credenciales válidas y llamada SOAP con `ListarProductos` devolviendo 8 productos.
+La entrega está completa.

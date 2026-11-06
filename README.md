@@ -1,4 +1,4 @@
-﻿# ServicioProductos WCF - PA2 y PA3
+# ServicioProductos WCF - PA2 y PA3
 
 Servicio WCF en .NET Framework para la gestión de productos y el registro de
 devoluciones de venta. Usa Entity Framework 6 sobre una base SQL Server existente y
@@ -130,9 +130,8 @@ Resultado de la última ejecución de integración: 25 de 25 comprobaciones corr
   referencia de servicio porque el contrato cambió a clases de respuesta.
 - LocalDB es una instancia por usuario: para IIS hay que usar otra instancia o ajustar
   la cadena de conexión.
-- HTTPS y autenticación básica quedaron configurados y documentados, pero no pudieron
-  verificarse en este equipo por falta de IIS y permisos de administrador. Estado:
-  **NO VERIFICADO**.
+- HTTPS y autenticación básica se verificaron el 05/11/2026 sobre IIS local. Estado:
+  **VERIFICADO**.
 - No se implementó autorización por roles; solo autenticación.
 
 ## Seguridad

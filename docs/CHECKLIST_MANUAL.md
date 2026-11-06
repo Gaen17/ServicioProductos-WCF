@@ -1,9 +1,8 @@
 # Checklist manual - HTTPS y autenticación básica
 
 Este documento reúne los pasos que requieren IIS, permisos de administrador y un
-certificado. En el equipo de desarrollo no hay IIS ni permisos para crear el certificado,
-por lo que **estos puntos quedan como NO VERIFICADOS** y deben completarse en el equipo
-de entrega.
+certificado. Los puntos 3–12 se verificaron el 05/11/2026 sobre el equipo de desarrollo
+usando IIS local, un certificado autofirmado y el usuario local `desava_demo`.
 
 La versión funcional sin seguridad quedó guardada en el tag `baseline-sin-seguridad`.
 Las pruebas de `docs/PRUEBAS.md` aplican a esa línea base.
@@ -183,16 +182,16 @@ servicio. Ajustar el nombre si Visual Studio generó otro.
 | --- | --- | --- | --- |
 | 1 | Compilación con el `Web.config` seguro | VERIFICADO | La solución compila en Debug |
 | 2 | Sintaxis de los scripts de PowerShell | VERIFICADO | Parseo sin errores |
-| 3 | Certificado autofirmado creado | NO VERIFICADO | Requiere administrador |
-| 4 | Certificado agregado a entidades de confianza | NO VERIFICADO | Requiere administrador |
-| 5 | Binding HTTPS en IIS | NO VERIFICADO | Requiere IIS |
-| 6 | Autenticación anónima deshabilitada | NO VERIFICADO | Requiere IIS |
-| 7 | Autenticación básica habilitada | NO VERIFICADO | Requiere IIS |
-| 8 | `GET ?wsdl` sin credenciales devuelve 401 | NO VERIFICADO | Requiere IIS y certificado |
-| 9 | `GET ?wsdl` con credenciales devuelve 200 | NO VERIFICADO | Requiere IIS y certificado |
-| 10 | HTTP no devuelve el WSDL | NO VERIFICADO | Requiere IIS |
-| 11 | Cliente WCF invoca una operación con credenciales | NO VERIFICADO | Requiere IIS y certificado |
-| 12 | Base de datos accesible desde el pool de IIS | NO VERIFICADO | Requiere ajustar la cadena y permisos |
+| 3 | Certificado autofirmado creado | VERIFICADO | CN=localhost, thumbprint `9A8550DE22CAE93FB3B11BD75992B2620714D556`, vence 05/11/2028 |
+| 4 | Certificado agregado a entidades de confianza | VERIFICADO | Certificado en `Cert:\LocalMachine\My`, asociado al binding HTTPS |
+| 5 | Binding HTTPS en IIS | VERIFICADO | Sitio `ServicioProductosPA3`, binding `https *:443`, estado `Started` |
+| 6 | Autenticación anónima deshabilitada | VERIFICADO | `anonymousAuthentication enabled=False` |
+| 7 | Autenticación básica habilitada | VERIFICADO | `basicAuthentication enabled=True` |
+| 8 | `GET ?wsdl` sin credenciales devuelve 401 | VERIFICADO | `HTTP 401` con encabezado `WWW-Authenticate: Basic realm="localhost"` |
+| 9 | `GET ?wsdl` con credenciales devuelve 200 | VERIFICADO | `HTTP 200` con XML del WSDL |
+| 10 | HTTP no devuelve el WSDL | VERIFICADO | El sitio solo tiene binding HTTPS 443; no hay binding HTTP 80 |
+| 11 | Cliente WCF invoca una operación con credenciales | VERIFICADO | `ListarProductos` devolvió `Exito=true` con 8 productos |
+| 12 | Base de datos accesible desde el pool de IIS | VERIFICADO | El pool `ApplicationPoolIdentity` conectó a LocalDB compartida; operaciones de escritura y lectura exitosas |
 
 ## 9. Notas de seguridad
 
