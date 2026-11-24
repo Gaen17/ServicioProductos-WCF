@@ -1,0 +1,45 @@
+﻿@model System.Collections.Generic.List<TestCliente.Models.Devoluciones.DevolucionResumenViewModel>
+@{
+    ViewBag.Title = "Devoluciones";
+}
+<div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+    <h2 class="mb-0">Devoluciones</h2>
+    @Html.ActionLink("Nueva devolución", "Nueva", null, new { @class = "btn btn-primary" })
+</div>
+
+@Html.Partial("_Mensajes")
+
+@if (Model.Count == 0)
+{
+    <p class="text-muted">No hay devoluciones para mostrar.</p>
+}
+else
+{
+    <table class="table table-striped table-sm align-middle">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Fecha</th>
+                <th>Venta</th>
+                <th>Motivo</th>
+                <th>Tipo</th>
+                <th class="text-end">Monto devuelto</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in Model)
+            {
+                <tr>
+                    <td>@d.Id</td>
+                    <td>@d.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@d.IdVenta</td>
+                    <td>@d.MotivoDevolucion</td>
+                    <td>@d.TipoDevolucion</td>
+                    <td class="text-end">@d.MontoTotalDevuelto.ToString("N2")</td>
+                    <td>@Html.ActionLink("Ver detalle", "Detalle", new { id = d.Id }, new { @class = "btn btn-sm btn-outline-secondary" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
