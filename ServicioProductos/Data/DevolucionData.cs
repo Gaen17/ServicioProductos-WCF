@@ -36,6 +36,52 @@ namespace ServicioProductos.Data
             }
         }
 
+        public List<DevolucionSp> Listar()
+        {
+            using (var db = new DesavaPAContext())
+            {
+                return db.Database
+                    .SqlQuery<DevolucionSp>("EXEC dbo.usp_Devolucion_Listar")
+                    .ToList();
+            }
+        }
+
+        public bool DevolucionExiste(int idDevolucion)
+        {
+            using (var db = new DesavaPAContext())
+            {
+                return db.Database
+                    .SqlQuery<int>(
+                        "EXEC dbo.usp_Devolucion_Existe @IdDevolucion",
+                        new SqlParameter("@IdDevolucion", SqlDbType.Int) { Value = idDevolucion })
+                    .Single() == 1;
+            }
+        }
+
+        public List<DetalleDevolucionSp> ObtenerDetalle(int idDevolucion)
+        {
+            using (var db = new DesavaPAContext())
+            {
+                return db.Database
+                    .SqlQuery<DetalleDevolucionSp>(
+                        "EXEC dbo.usp_DetalleDevolucion_ObtenerPorDevolucion @IdDevolucion",
+                        new SqlParameter("@IdDevolucion", SqlDbType.Int) { Value = idDevolucion })
+                    .ToList();
+            }
+        }
+
+        public List<VentaProductoSp> ObtenerProductosVenta(int idVenta)
+        {
+            using (var db = new DesavaPAContext())
+            {
+                return db.Database
+                    .SqlQuery<VentaProductoSp>(
+                        "EXEC dbo.usp_Venta_ObtenerProductos @IdVenta",
+                        new SqlParameter("@IdVenta", SqlDbType.Int) { Value = idVenta })
+                    .ToList();
+            }
+        }
+
         public int Registrar(int idVenta, string motivo, string tipo, decimal monto, List<DetalleDevolucionData> detalles)
         {
             using (var db = new DesavaPAContext())
