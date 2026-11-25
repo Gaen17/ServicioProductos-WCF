@@ -217,3 +217,79 @@ BEGIN
                 THEN 1 ELSE 0 END AS TieneVentas;
 END;
 GO
+
+-- PA4: consultas de devoluciones y productos de una venta (solo lectura).
+CREATE OR ALTER PROCEDURE dbo.usp_Devolucion_Listar
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT d.Id,
+           d.Fecha,
+           d.IdVenta,
+           d.MotivoDevolucion,
+           d.TipoDevolucion,
+           d.MontoTotalDevuelto
+    FROM dbo.Devolucion AS d
+    ORDER BY d.Id;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Devolucion_Existe
+    @IdDevolucion INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT CASE WHEN EXISTS (SELECT 1 FROM dbo.Devolucion WHERE Id = @IdDevolucion)
+                THEN 1 ELSE 0 END AS Existe;
+END;
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_DetalleDevolucion_ObtenerPorDevolucion
+    @IdDevolucion INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT dd.IdProducto,
+           p.Nombre AS NombreProducto,
+           dd.Cantidad,
+           dd.PrecioVenta
+    FROM dbo.DetalleDevolucion AS dd
+    INNER JOIN dbo.Productos AS p ON p.Id = dd.IdProducto
+    WHERE dd.IdDevolucion = @IdDevolucion
+    ORDER BY dd.Id;
+END;
+GO
+
+-- Reutiliza usp_Venta_ObtenerPendientes (no repite el calculo) y agrega el nombre.
+CREATE OR ALTER PROCEDURE dbo.usp_Venta_ObtenerProductos
+    @IdVenta INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    CREATE TABLE #Pendientes
+    (
+        IdProducto       INT           NOT NULL,
+        CantidadVendida  INT           NOT NULL,
+        CantidadDevuelta INT           NOT NULL,
+        CantidadPendiente INT          NOT NULL,
+        PrecioVenta      DECIMAL(10,2) NOT NULL
+    );
+
+    INSERT INTO #Pendientes (IdProducto, CantidadVendida, CantidadDevuelta, CantidadPendiente, PrecioVenta)
+    EXEC dbo.usp_Venta_ObtenerPendientes @IdVenta;
+
+    SELECT t.IdProducto,
+           p.Nombre AS NombreProducto,
+           t.CantidadVendida,
+           t.CantidadDevuelta,
+           t.CantidadPendiente,
+           t.PrecioVenta
+    FROM #Pendientes AS t
+    INNER JOIN dbo.Productos AS p ON p.Id = t.IdProducto
+    ORDER BY t.IdProducto;
+END;
+GO
