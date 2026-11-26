@@ -1,0 +1,30 @@
+﻿@{
+    var exito = TempData["Exito"] as string;
+    var errores = ViewBag.Errores as System.Collections.Generic.List<string>;
+    var errorServicio = ViewBag.ErrorServicio as string;
+    var info = ViewBag.Info as string;
+}
+@if (!string.IsNullOrEmpty(exito))
+{
+    <div class="alert alert-success" role="alert">@exito</div>
+}
+@if (errores != null && errores.Count > 0)
+{
+    <div class="alert alert-warning" role="alert">
+        <strong>Revise los datos ingresados:</strong>
+        <ul class="mb-0">
+            @foreach (var e in errores)
+            {
+                <li>@e</li>
+            }
+        </ul>
+    </div>
+}
+@if (!string.IsNullOrEmpty(errorServicio))
+{
+    <div class="alert alert-danger" role="alert">@errorServicio</div>
+}
+@if (!string.IsNullOrEmpty(info))
+{
+    <div class="alert alert-info" role="alert">@info</div>
+}

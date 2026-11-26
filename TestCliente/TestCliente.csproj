@@ -78,7 +78,12 @@
     <Compile Include="App_Start\CertificadoDesarrollo.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DevolucionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\Devoluciones\DevolucionesViewModels.cs" />
+    <Compile Include="Servicios\DevolucionesServicio.cs" />
+    <Compile Include="Servicios\IDevolucionesServicio.cs" />
+    <Compile Include="Servicios\ServicioExceptions.cs" />
     <Compile Include="Controllers\PruebaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -95,6 +100,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Mensajes.cshtml" />
+    <Content Include="Views\Devoluciones\Index.cshtml" />
+    <Content Include="Views\Devoluciones\Detalle.cshtml" />
+    <Content Include="Views\Devoluciones\Nueva.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Prueba\Index.cshtml" />
     <Content Include="Web.config" />
@@ -107,10 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Proxy\wsdl\tempuri.org.wsdl" />
-    <None Include="Proxy\wsdl\tempuri.org.xsd" />
-    <None Include="Proxy\wsdl\ServicioProductos.xsd" />
-    <None Include="Proxy\wsdl\schemas.microsoft.com.2003.10.Serialization.xsd" />
+    <None Include="Proxy\wsdl\ProductoService.wsdl" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
