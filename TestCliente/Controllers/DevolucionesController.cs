@@ -224,10 +224,6 @@ namespace TestCliente.Controllers
             {
                 return llamada();
             }
-            catch (OperacionNoDisponibleException ex)
-            {
-                ViewBag.Info = ex.Message;
-            }
             catch (ErrorServicioException ex)
             {
                 ViewBag.ErrorServicio = ex.Message;

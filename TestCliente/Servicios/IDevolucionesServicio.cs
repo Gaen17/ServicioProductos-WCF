@@ -6,8 +6,7 @@ namespace TestCliente.Servicios
     /// <summary>
     /// Returns operations used by DevolucionesController. Works with client view models,
     /// so the controller and views do not change when the proxy is regenerated.
-    /// Throws ErrorServicioException (connection/service failure) or
-    /// OperacionNoDisponibleException (operation not yet published by the service).
+    /// Throws ErrorServicioException on connection failure or when the service rejects the request.
     /// </summary>
     public interface IDevolucionesServicio
     {

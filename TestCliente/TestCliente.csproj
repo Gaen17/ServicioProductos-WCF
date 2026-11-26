@@ -116,10 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Proxy\wsdl\tempuri.org.wsdl" />
-    <None Include="Proxy\wsdl\tempuri.org.xsd" />
-    <None Include="Proxy\wsdl\ServicioProductos.xsd" />
-    <None Include="Proxy\wsdl\schemas.microsoft.com.2003.10.Serialization.xsd" />
+    <None Include="Proxy\wsdl\ProductoService.wsdl" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

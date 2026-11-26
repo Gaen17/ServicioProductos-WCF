@@ -41,5 +41,5 @@ por HTTPS con autenticación Basic. Nunca accede a la base de datos: todo pasa p
 ## Decisiones comunes
 
 - **ViewModels propios:** las vistas no usan las clases del proxy; si el servicio cambia, solo cambia la capa `Servicios`.
-- **`IDevolucionesServicio`:** el controlador depende de esta interfaz; las operaciones aún no publicadas están marcadas `TEMPORAL`.
+- **`IDevolucionesServicio`:** el controlador depende de esta interfaz, que traduce las respuestas del proxy a ViewModels; si el servicio responde `Exito=false`, su mensaje se muestra tal cual.
 - **Errores:** los fallos de conexión se muestran con mensajes claros, sin detalles técnicos ni credenciales.

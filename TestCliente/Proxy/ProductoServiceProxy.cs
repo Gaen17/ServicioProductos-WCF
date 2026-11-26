@@ -499,6 +499,507 @@ namespace TestCliente.ServicioProductosRef
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RespuestaListaDevoluciones", Namespace="http://schemas.datacontract.org/2004/07/ServicioProductos")]
+    public partial class RespuestaListaDevoluciones : object, System.Runtime.Serialization.IExtensibleDataObject
+    {
+        
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private System.Collections.Generic.List<TestCliente.ServicioProductosRef.DevolucionListadoDto> DevolucionesField;
+        
+        private bool ExitoField;
+        
+        private string MensajeField;
+        
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+        {
+            get
+            {
+                return this.extensionDataField;
+            }
+            set
+            {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<TestCliente.ServicioProductosRef.DevolucionListadoDto> Devoluciones
+        {
+            get
+            {
+                return this.DevolucionesField;
+            }
+            set
+            {
+                this.DevolucionesField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Exito
+        {
+            get
+            {
+                return this.ExitoField;
+            }
+            set
+            {
+                this.ExitoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Mensaje
+        {
+            get
+            {
+                return this.MensajeField;
+            }
+            set
+            {
+                this.MensajeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DevolucionListadoDto", Namespace="http://schemas.datacontract.org/2004/07/ServicioProductos")]
+    public partial class DevolucionListadoDto : object, System.Runtime.Serialization.IExtensibleDataObject
+    {
+        
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private System.DateTime FechaField;
+        
+        private int IdField;
+        
+        private int IdVentaField;
+        
+        private decimal MontoTotalDevueltoField;
+        
+        private string MotivoDevolucionField;
+        
+        private string TipoDevolucionField;
+        
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+        {
+            get
+            {
+                return this.extensionDataField;
+            }
+            set
+            {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime Fecha
+        {
+            get
+            {
+                return this.FechaField;
+            }
+            set
+            {
+                this.FechaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id
+        {
+            get
+            {
+                return this.IdField;
+            }
+            set
+            {
+                this.IdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdVenta
+        {
+            get
+            {
+                return this.IdVentaField;
+            }
+            set
+            {
+                this.IdVentaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal MontoTotalDevuelto
+        {
+            get
+            {
+                return this.MontoTotalDevueltoField;
+            }
+            set
+            {
+                this.MontoTotalDevueltoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MotivoDevolucion
+        {
+            get
+            {
+                return this.MotivoDevolucionField;
+            }
+            set
+            {
+                this.MotivoDevolucionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoDevolucion
+        {
+            get
+            {
+                return this.TipoDevolucionField;
+            }
+            set
+            {
+                this.TipoDevolucionField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RespuestaDetalleDevolucion", Namespace="http://schemas.datacontract.org/2004/07/ServicioProductos")]
+    public partial class RespuestaDetalleDevolucion : object, System.Runtime.Serialization.IExtensibleDataObject
+    {
+        
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private System.Collections.Generic.List<TestCliente.ServicioProductosRef.DetalleDevolucionDto> DetalleField;
+        
+        private bool ExitoField;
+        
+        private string MensajeField;
+        
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+        {
+            get
+            {
+                return this.extensionDataField;
+            }
+            set
+            {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<TestCliente.ServicioProductosRef.DetalleDevolucionDto> Detalle
+        {
+            get
+            {
+                return this.DetalleField;
+            }
+            set
+            {
+                this.DetalleField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Exito
+        {
+            get
+            {
+                return this.ExitoField;
+            }
+            set
+            {
+                this.ExitoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Mensaje
+        {
+            get
+            {
+                return this.MensajeField;
+            }
+            set
+            {
+                this.MensajeField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DetalleDevolucionDto", Namespace="http://schemas.datacontract.org/2004/07/ServicioProductos")]
+    public partial class DetalleDevolucionDto : object, System.Runtime.Serialization.IExtensibleDataObject
+    {
+        
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private int CantidadField;
+        
+        private int IdProductoField;
+        
+        private string NombreProductoField;
+        
+        private decimal PrecioVentaField;
+        
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+        {
+            get
+            {
+                return this.extensionDataField;
+            }
+            set
+            {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Cantidad
+        {
+            get
+            {
+                return this.CantidadField;
+            }
+            set
+            {
+                this.CantidadField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdProducto
+        {
+            get
+            {
+                return this.IdProductoField;
+            }
+            set
+            {
+                this.IdProductoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreProducto
+        {
+            get
+            {
+                return this.NombreProductoField;
+            }
+            set
+            {
+                this.NombreProductoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PrecioVenta
+        {
+            get
+            {
+                return this.PrecioVentaField;
+            }
+            set
+            {
+                this.PrecioVentaField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="RespuestaProductosVenta", Namespace="http://schemas.datacontract.org/2004/07/ServicioProductos")]
+    public partial class RespuestaProductosVenta : object, System.Runtime.Serialization.IExtensibleDataObject
+    {
+        
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private bool ExitoField;
+        
+        private string MensajeField;
+        
+        private System.Collections.Generic.List<TestCliente.ServicioProductosRef.ProductoVentaDto> ProductosField;
+        
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+        {
+            get
+            {
+                return this.extensionDataField;
+            }
+            set
+            {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Exito
+        {
+            get
+            {
+                return this.ExitoField;
+            }
+            set
+            {
+                this.ExitoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Mensaje
+        {
+            get
+            {
+                return this.MensajeField;
+            }
+            set
+            {
+                this.MensajeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<TestCliente.ServicioProductosRef.ProductoVentaDto> Productos
+        {
+            get
+            {
+                return this.ProductosField;
+            }
+            set
+            {
+                this.ProductosField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ProductoVentaDto", Namespace="http://schemas.datacontract.org/2004/07/ServicioProductos")]
+    public partial class ProductoVentaDto : object, System.Runtime.Serialization.IExtensibleDataObject
+    {
+        
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private int CantidadDevueltaField;
+        
+        private int CantidadPendienteField;
+        
+        private int CantidadVendidaField;
+        
+        private int IdProductoField;
+        
+        private string NombreProductoField;
+        
+        private decimal PrecioVentaField;
+        
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
+        {
+            get
+            {
+                return this.extensionDataField;
+            }
+            set
+            {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadDevuelta
+        {
+            get
+            {
+                return this.CantidadDevueltaField;
+            }
+            set
+            {
+                this.CantidadDevueltaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadPendiente
+        {
+            get
+            {
+                return this.CantidadPendienteField;
+            }
+            set
+            {
+                this.CantidadPendienteField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadVendida
+        {
+            get
+            {
+                return this.CantidadVendidaField;
+            }
+            set
+            {
+                this.CantidadVendidaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdProducto
+        {
+            get
+            {
+                return this.IdProductoField;
+            }
+            set
+            {
+                this.IdProductoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreProducto
+        {
+            get
+            {
+                return this.NombreProductoField;
+            }
+            set
+            {
+                this.NombreProductoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PrecioVenta
+        {
+            get
+            {
+                return this.PrecioVentaField;
+            }
+            set
+            {
+                this.PrecioVentaField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="TestCliente.ServicioProductosRef.IProductoService")]
     public interface IProductoService
@@ -539,6 +1040,24 @@ namespace TestCliente.ServicioProductosRef
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/RegistrarDevolucionVenta", ReplyAction="http://tempuri.org/IProductoService/RegistrarDevolucionVentaResponse")]
         System.Threading.Tasks.Task<TestCliente.ServicioProductosRef.RespuestaDevolucion> RegistrarDevolucionVentaAsync(int idVenta, string motivo, System.Collections.Generic.List<TestCliente.ServicioProductosRef.ItemDevolucionDto> items);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ListarDevoluciones", ReplyAction="http://tempuri.org/IProductoService/ListarDevolucionesResponse")]
+        TestCliente.ServicioProductosRef.RespuestaListaDevoluciones ListarDevoluciones();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ListarDevoluciones", ReplyAction="http://tempuri.org/IProductoService/ListarDevolucionesResponse")]
+        System.Threading.Tasks.Task<TestCliente.ServicioProductosRef.RespuestaListaDevoluciones> ListarDevolucionesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/VerDevolucionDetalle", ReplyAction="http://tempuri.org/IProductoService/VerDevolucionDetalleResponse")]
+        TestCliente.ServicioProductosRef.RespuestaDetalleDevolucion VerDevolucionDetalle(int idDevolucion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/VerDevolucionDetalle", ReplyAction="http://tempuri.org/IProductoService/VerDevolucionDetalleResponse")]
+        System.Threading.Tasks.Task<TestCliente.ServicioProductosRef.RespuestaDetalleDevolucion> VerDevolucionDetalleAsync(int idDevolucion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerProductosVenta", ReplyAction="http://tempuri.org/IProductoService/ObtenerProductosVentaResponse")]
+        TestCliente.ServicioProductosRef.RespuestaProductosVenta ObtenerProductosVenta(int idVenta);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerProductosVenta", ReplyAction="http://tempuri.org/IProductoService/ObtenerProductosVentaResponse")]
+        System.Threading.Tasks.Task<TestCliente.ServicioProductosRef.RespuestaProductosVenta> ObtenerProductosVentaAsync(int idVenta);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -633,6 +1152,36 @@ namespace TestCliente.ServicioProductosRef
         public System.Threading.Tasks.Task<TestCliente.ServicioProductosRef.RespuestaDevolucion> RegistrarDevolucionVentaAsync(int idVenta, string motivo, System.Collections.Generic.List<TestCliente.ServicioProductosRef.ItemDevolucionDto> items)
         {
             return base.Channel.RegistrarDevolucionVentaAsync(idVenta, motivo, items);
+        }
+        
+        public TestCliente.ServicioProductosRef.RespuestaListaDevoluciones ListarDevoluciones()
+        {
+            return base.Channel.ListarDevoluciones();
+        }
+        
+        public System.Threading.Tasks.Task<TestCliente.ServicioProductosRef.RespuestaListaDevoluciones> ListarDevolucionesAsync()
+        {
+            return base.Channel.ListarDevolucionesAsync();
+        }
+        
+        public TestCliente.ServicioProductosRef.RespuestaDetalleDevolucion VerDevolucionDetalle(int idDevolucion)
+        {
+            return base.Channel.VerDevolucionDetalle(idDevolucion);
+        }
+        
+        public System.Threading.Tasks.Task<TestCliente.ServicioProductosRef.RespuestaDetalleDevolucion> VerDevolucionDetalleAsync(int idDevolucion)
+        {
+            return base.Channel.VerDevolucionDetalleAsync(idDevolucion);
+        }
+        
+        public TestCliente.ServicioProductosRef.RespuestaProductosVenta ObtenerProductosVenta(int idVenta)
+        {
+            return base.Channel.ObtenerProductosVenta(idVenta);
+        }
+        
+        public System.Threading.Tasks.Task<TestCliente.ServicioProductosRef.RespuestaProductosVenta> ObtenerProductosVentaAsync(int idVenta)
+        {
+            return base.Channel.ObtenerProductosVentaAsync(idVenta);
         }
     }
 }
