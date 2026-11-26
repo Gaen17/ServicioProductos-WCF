@@ -383,3 +383,29 @@ realmente se cobró en la venta.
   servicio.
 - `TestCliente` no está en el repositorio; un cliente existente debe actualizar su
   referencia.
+
+## 11. Consultas de devoluciones y productos de una venta (PA4)
+
+Estas tres operaciones solo leen datos. No cambian tablas ni stock.
+
+**ListarDevoluciones**
+
+Devuelve todas las devoluciones: Id, Fecha, IdVenta, MotivoDevolucion, TipoDevolucion y
+MontoTotalDevuelto. Lee la tabla `Devolucion` con el procedimiento `usp_Devolucion_Listar`,
+ordenado por Id. Si no hay devoluciones, responde `Exito = true` con la lista vacía. Se usa
+un procedimiento almacenado para seguir el mismo patrón del resto del servicio.
+
+**VerDevolucionDetalle(idDevolucion)**
+
+Devuelve los productos de una devolución: IdProducto, nombre, Cantidad y PrecioVenta.
+Primero comprueba con `usp_Devolucion_Existe` que la devolución exista. Luego llama a
+`usp_DetalleDevolucion_ObtenerPorDevolucion`, que une `DetalleDevolucion` con `Productos`
+para traer el nombre. Si el Id no existe, responde `Exito = false` con un mensaje claro.
+
+**ObtenerProductosVenta(idVenta)**
+
+Devuelve los productos de una venta con CantidadVendida, CantidadDevuelta,
+CantidadPendiente y PrecioVenta, más el nombre del producto. El procedimiento
+`usp_Venta_ObtenerProductos` ejecuta `usp_Venta_ObtenerPendientes` y le agrega el nombre
+desde `Productos`. Así el cálculo de pendientes vive en un solo lugar y es el mismo que usa
+`RegistrarDevolucionVenta`. Si la venta no existe, responde `Exito = false`.

@@ -23,5 +23,14 @@ namespace ServicioProductos
 
         [OperationContract]
         RespuestaDevolucion RegistrarDevolucionVenta(int idVenta, string motivo, List<ItemDevolucionDto> items);
+
+        [OperationContract]
+        RespuestaListaDevoluciones ListarDevoluciones();
+
+        [OperationContract]
+        RespuestaDetalleDevolucion VerDevolucionDetalle(int idDevolucion);
+
+        [OperationContract]
+        RespuestaProductosVenta ObtenerProductosVenta(int idVenta);
     }
 }

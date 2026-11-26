@@ -427,6 +427,127 @@ namespace ServicioProductos
             }
         }
 
+        public RespuestaListaDevoluciones ListarDevoluciones()
+        {
+            try
+            {
+                var devoluciones = _devolucionData.Listar().Select(MapearDevolucionListado).ToList();
+
+                return new RespuestaListaDevoluciones
+                {
+                    Exito = true,
+                    Mensaje = devoluciones.Count == 0
+                        ? "No hay devoluciones registradas."
+                        : "Lista de devoluciones obtenida correctamente.",
+                    Devoluciones = devoluciones
+                };
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError("Error al listar devoluciones: " + ex);
+                return new RespuestaListaDevoluciones
+                {
+                    Exito = false,
+                    Mensaje = "No se pudo obtener la lista de devoluciones. Intente nuevamente.",
+                    Devoluciones = new List<DevolucionListadoDto>()
+                };
+            }
+        }
+
+        public RespuestaDetalleDevolucion VerDevolucionDetalle(int idDevolucion)
+        {
+            if (idDevolucion <= 0)
+            {
+                return new RespuestaDetalleDevolucion
+                {
+                    Exito = false,
+                    Mensaje = "El identificador de la devolucion debe ser mayor que cero.",
+                    Detalle = new List<DetalleDevolucionDto>()
+                };
+            }
+
+            try
+            {
+                if (!_devolucionData.DevolucionExiste(idDevolucion))
+                {
+                    return new RespuestaDetalleDevolucion
+                    {
+                        Exito = false,
+                        Mensaje = "No se encontro una devolucion con el Id " + idDevolucion + ".",
+                        Detalle = new List<DetalleDevolucionDto>()
+                    };
+                }
+
+                var detalle = _devolucionData.ObtenerDetalle(idDevolucion).Select(MapearDetalleDevolucion).ToList();
+
+                return new RespuestaDetalleDevolucion
+                {
+                    Exito = true,
+                    Mensaje = detalle.Count == 0
+                        ? "La devolucion no tiene productos en su detalle."
+                        : "Detalle de la devolucion obtenido correctamente.",
+                    Detalle = detalle
+                };
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError("Error al obtener el detalle de la devolucion " + idDevolucion + ": " + ex);
+                return new RespuestaDetalleDevolucion
+                {
+                    Exito = false,
+                    Mensaje = "No se pudo obtener el detalle de la devolucion. Intente nuevamente.",
+                    Detalle = new List<DetalleDevolucionDto>()
+                };
+            }
+        }
+
+        public RespuestaProductosVenta ObtenerProductosVenta(int idVenta)
+        {
+            if (idVenta <= 0)
+            {
+                return new RespuestaProductosVenta
+                {
+                    Exito = false,
+                    Mensaje = "El identificador de la venta debe ser mayor que cero.",
+                    Productos = new List<ProductoVentaDto>()
+                };
+            }
+
+            try
+            {
+                if (!_devolucionData.VentaExiste(idVenta))
+                {
+                    return new RespuestaProductosVenta
+                    {
+                        Exito = false,
+                        Mensaje = "La venta indicada no existe.",
+                        Productos = new List<ProductoVentaDto>()
+                    };
+                }
+
+                var productos = _devolucionData.ObtenerProductosVenta(idVenta).Select(MapearProductoVenta).ToList();
+
+                return new RespuestaProductosVenta
+                {
+                    Exito = true,
+                    Mensaje = productos.Count == 0
+                        ? "La venta no tiene productos registrados."
+                        : "Productos de la venta obtenidos correctamente.",
+                    Productos = productos
+                };
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError("Error al obtener los productos de la venta " + idVenta + ": " + ex);
+                return new RespuestaProductosVenta
+                {
+                    Exito = false,
+                    Mensaje = "No se pudieron obtener los productos de la venta. Intente nuevamente.",
+                    Productos = new List<ProductoVentaDto>()
+                };
+            }
+        }
+
         private bool ValidarProducto(Producto producto, out string mensaje)
         {
             mensaje = null;
@@ -515,6 +636,43 @@ namespace ServicioProductos
                 IdCategoria = producto.IdCategoria,
                 CategoriaNombre = producto.CategoriaNombre,
                 UrlImagen = producto.UrlImagen
+            };
+        }
+
+        private static DevolucionListadoDto MapearDevolucionListado(DevolucionSp d)
+        {
+            return new DevolucionListadoDto
+            {
+                Id = d.Id,
+                Fecha = d.Fecha,
+                IdVenta = d.IdVenta,
+                MotivoDevolucion = d.MotivoDevolucion,
+                TipoDevolucion = d.TipoDevolucion,
+                MontoTotalDevuelto = d.MontoTotalDevuelto
+            };
+        }
+
+        private static DetalleDevolucionDto MapearDetalleDevolucion(DetalleDevolucionSp d)
+        {
+            return new DetalleDevolucionDto
+            {
+                IdProducto = d.IdProducto,
+                NombreProducto = d.NombreProducto,
+                Cantidad = d.Cantidad,
+                PrecioVenta = d.PrecioVenta
+            };
+        }
+
+        private static ProductoVentaDto MapearProductoVenta(VentaProductoSp p)
+        {
+            return new ProductoVentaDto
+            {
+                IdProducto = p.IdProducto,
+                NombreProducto = p.NombreProducto,
+                CantidadVendida = p.CantidadVendida,
+                CantidadDevuelta = p.CantidadDevuelta,
+                CantidadPendiente = p.CantidadPendiente,
+                PrecioVenta = p.PrecioVenta
             };
         }
 

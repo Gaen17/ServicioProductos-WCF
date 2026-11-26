@@ -51,4 +51,54 @@ namespace ServicioProductos.Data
 
         public bool ReingresaInventario { get; set; }
     }
+
+    /// <summary>
+    /// Resultado de usp_Devolucion_Listar.
+    /// </summary>
+    public class DevolucionSp
+    {
+        public int Id { get; set; }
+
+        public System.DateTime Fecha { get; set; }
+
+        public int IdVenta { get; set; }
+
+        public string MotivoDevolucion { get; set; }
+
+        public string TipoDevolucion { get; set; }
+
+        public decimal MontoTotalDevuelto { get; set; }
+    }
+
+    /// <summary>
+    /// Resultado de usp_DetalleDevolucion_ObtenerPorDevolucion.
+    /// </summary>
+    public class DetalleDevolucionSp
+    {
+        public int IdProducto { get; set; }
+
+        public string NombreProducto { get; set; }
+
+        public int Cantidad { get; set; }
+
+        public decimal PrecioVenta { get; set; }
+    }
+
+    /// <summary>
+    /// Resultado de usp_Venta_ObtenerProductos.
+    /// </summary>
+    public class VentaProductoSp
+    {
+        public int IdProducto { get; set; }
+
+        public string NombreProducto { get; set; }
+
+        public int CantidadVendida { get; set; }
+
+        public int CantidadDevuelta { get; set; }
+
+        public int CantidadPendiente { get; set; }
+
+        public decimal PrecioVenta { get; set; }
+    }
 }
